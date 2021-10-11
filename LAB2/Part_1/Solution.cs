@@ -12,15 +12,20 @@ namespace LAB2.PartOne
 
             for (int i=2; i < lines.Length - 1; i++)
             {
-                string temp = lines[i].Split(" ",StringSplitOptions.RemoveEmptyEntries)[3];
+                string temp1 = lines[i].Split(" ", StringSplitOptions.RemoveEmptyEntries)[2];
+                string temp2 = lines[i].Split(" ",StringSplitOptions.RemoveEmptyEntries)[3];
 
-                if (temp[temp.Length - 1].Equals('*'))
+                if (temp1[temp1.Length - 1].Equals('*'))
                 {
-                    temp = temp.Remove(temp.Length - 1);
+                    temp1 = temp1.Remove(temp1.Length - 1);
                 }
-                
-                int tempVal = Int32.Parse(temp);
-                
+                if (temp2[temp2.Length - 1].Equals('*'))
+                {
+                    temp2 = temp2.Remove(temp2.Length - 1);
+                }
+
+                int tempVal = Int32.Parse(temp1)-Int32.Parse(temp2);
+
                 if (tempVal < minimumTemp)
                 {
                     minimumTemp = tempVal;

@@ -7,8 +7,8 @@ namespace LAB2
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(Solution.GetMinimumTemperature(@"C:\Users\Administrator\Documents\Rider\LAB2\LAB2\LAB2\weather.dat"));
-            Console.WriteLine(Solution.GetMinimumGoalDifference(@"C:\Users\Administrator\Documents\Rider\LAB2\LAB2\LAB2\football.dat"));
+            Console.WriteLine(Solution.GetColumnFieldBasedOnMinimumDifference(@"C:\Users\Administrator\Documents\Rider\LAB2\LAB2\LAB2\weather.dat",1,2,3));
+            Console.WriteLine(Solution.GetColumnFieldBasedOnMinimumDifference(@"C:\Users\Administrator\Documents\Rider\LAB2\LAB2\LAB2\football.dat",2,7,9));
         }
     }
 }

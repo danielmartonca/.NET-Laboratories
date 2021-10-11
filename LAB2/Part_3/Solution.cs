@@ -6,7 +6,7 @@ namespace LAB2.PartThree
 {
     public class Solution
     {
-        private static string GetValuesColumn(string line, int number)
+        private static string GetStringFromLineField(string line, int number)
         {
             var temp=line.Split(" ", StringSplitOptions.RemoveEmptyEntries);
             if (number-1 >= 0 && number-1 < temp.Length)
@@ -16,7 +16,7 @@ namespace LAB2.PartThree
             return null;
         }
 
-        private static int ParseTemperatureString(string str)
+        private static int ParseStringToInteger(string str)
         {
             if (str == null) return Int32.MaxValue;
 
@@ -34,59 +34,32 @@ namespace LAB2.PartThree
             return Int32.Parse(str);
         }
 
-        private static int GetMinimumValue(string a, string b)
+        private static int GetDifference(int a, int b)
         {
-            int x = Int32.Parse(a);
-            int y = Int32.Parse(b);
-            return (x<y) ? x : y;
-        }
-
-        private static int GetDifference(string a, string b)
-        {
-            if(a==null||b==null)
+            if(a==Int32.MaxValue||b==Int32.MaxValue)
                 return Int32.MaxValue;
 
-            int x = Int32.Parse(a);
-            int y = Int32.Parse(b);
-            return Math.Abs(x-y);
+            return Math.Abs(a-b);
         }
 
-        public static string GetMinimumTemperature(string filePath)
+        public static string GetColumnFieldBasedOnMinimumDifference(string filePath,int returnedColumnNumber,int firstColumnNumber, int secondColumnNumber)
         {
             var lines = System.IO.File.ReadAllLines(filePath);
 
             int minValue=Int32.MaxValue;
-            string minDay=" ";
+            string minColumnField="";
             foreach (var line in lines)
             {
-                var temperature = ParseTemperatureString(GetValuesColumn(line, 3));
-                if(temperature<minValue)
+                var val1 = ParseStringToInteger(GetStringFromLineField(line, firstColumnNumber));
+                var val2 = ParseStringToInteger(GetStringFromLineField(line, secondColumnNumber));
+                var difference = GetDifference(val1, val2);
+                if(difference<minValue)
                 {
-                    minValue = temperature;
-                    minDay = GetValuesColumn(line, 1);
+                    minValue = difference;
+                    minColumnField = GetStringFromLineField(line, returnedColumnNumber);
                 }
             }
-            return minDay;
-        }
-
-        public static string GetMinimumGoalDifference(string filePath)
-        {
-            var lines = System.IO.File.ReadAllLines(filePath);
-
-            int minValue=Int32.MaxValue;
-            string minTeamName="";
-            foreach (var line in lines)
-            {
-                var goalsFor = GetValuesColumn(line, 7);
-                var goalsAgainst = GetValuesColumn(line, 9);
-                var goalDifference = GetDifference(goalsFor, goalsAgainst);
-                if(goalDifference<minValue)
-                {
-                    minValue = goalDifference;
-                    minTeamName = GetValuesColumn(line, 2);
-                }
-            }
-            return minTeamName;
+            return minColumnField;
         }
     }
 }
